@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment files
+.env
+
+# VS Code settings folder
+.vscode/
+
+# Logs
+*.log
+
+# PyTorch model weights if saved locally (but you are downloading from HF hub)
+*.pth
+*.pt
+
+# Any other local data or temp files
+*.tmp
