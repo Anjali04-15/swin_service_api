@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from huggingface_hub import hf_hub_download
+import functools
 
 # Patch Embedding
 class PatchEmbedding(nn.Module):
@@ -202,6 +203,7 @@ class SwinTransformer(nn.Module):
         return x
 
 # Function to load the model and weights
+@functools.lru_cache()
 def load_swin_model():
     weights_path = hf_hub_download(repo_id="Anjali04-15/fruit-swin-model", filename="swin_state_dict.pth")
     model = SwinTransformer(
@@ -215,5 +217,7 @@ def load_swin_model():
         window_size=7
     )
     # Load the weights onto the CPU explicitly
-    model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
+    state_dict = torch.load(weights_path, map_location="cpu")
+    model.load_state_dict(state_dict)
+    model.eval()
     return model
